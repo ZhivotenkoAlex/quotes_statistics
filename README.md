@@ -1,70 +1,36 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1.
+Условие: необходимо создать веб-приложение, которое максимально быстро считает 
+статистические параметры по котировкам с биржи. 
+Для этого необходимо создать интерфейс который содержит кнопки “Старт” и “Статистика”. 
+По нажатию на “Старт” должно происходить подключение к эмулятору котировок по адресу 
+вебсокета wss://trade.trademux.net:8800/?password=1234 для получения котировок онлайн. При 
+нажатии на кнопку “Статистика” отображает на странице такие статистические значения: 
+среднее, стандартное отклонение, моду (при мультимодности достаточно только одну моду), 
+медиану, количество потерянных котировок если такие есть, время расчетов. Расчеты должны 
+осуществляться по всем полученным данным от момента старта до текущего момента нажатия 
+кнопки “Статистика”, кнопку можно нажимать сколько угодно раз для получения новых 
+результатов на текущее время.
+Формат “котировки” json, поля : {id : id_котировки, value : значение_котировки}
+Технические требования:
+• Приложение должно быть максимально оптимизировано по скорости работы.
+• Время между нажатием Старт и Статистика может быть очень большим (несколько 
+дней)
+• Интерфейс должен быть удобен для использования.
+• Стиль кнопок должен быть: бордер ровно 1пкс черный, фон кнопки серый, при 
+наведении мыши на кнопку фон должен становится белым, при клике на кнопку фон 
+должен становится желтым (использовать для этого только CSS / SCSS).
+• Принятые числа отображать не нужно.
+Уровни сложности задания:
+junior уровень: посчитать только среднее и стандартное отклонение
+Более высокий уровень: посчитать также моду и медиану
+2.
+Условие: Написать "пингователь" любого сервера на JavaScript, который покажет 
+примерное время пинга до сервера указанного в поле ввода.
+Технические требования:
+• стиль кнопок должен быть: бордер ровно 1пкс черный, фон кнопки серый, при 
+наведении мыши на кнопку фон должен становится белым, при клике на кнопку фон 
+должен становится желтым (использовать для этого только CSS / SCSS).
+• стиль полей ввода должен быть: бордер ровно 1пкс черный, фон белый, при наведении 
+мыши на поле ввода фон должен становится серым, при клике на поле фон должен 
+становится желтым (использовать для этого только CSS / SCSS)
+Задания делать на ReactJS.
