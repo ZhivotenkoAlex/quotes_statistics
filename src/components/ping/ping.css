@@ -1,0 +1,40 @@
+.ping {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 25px;
+}
+.ping__input {
+  border: 1px solid black;
+  width: 200px;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.ping__button {
+  font-size: 15px;
+  border: 1px solid black;
+  background-color: rgb(207, 204, 204);
+  width: 125px;
+  height: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+.ping__button:hover {
+  background-color: white;
+}
+.ping__button:disabled {
+  cursor: not-allowed;
+}
+.ping__button:active,
+.ping__button:focus:not(:active) {
+  background-color: rgb(247, 247, 130);
+}
+.ping__result {
+  font-size: 25px;
+  margin: 0;
+}
