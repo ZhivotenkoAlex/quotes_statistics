@@ -1,4 +1,4 @@
-import Quotes from "./components/Quotes";
+import Quotes from "./components/quotes/Quotes";
 import Ping from "./components/ping/Ping";
 
 function App() {

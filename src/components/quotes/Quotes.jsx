@@ -1,46 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./quotes.css";
-import getStatistisc from "../utils/stats";
+import getStatistisc from "../../utils/stats";
+import { useWebWorker } from "../../hooks/useWebWorker";
 
 export default function Quotes() {
   const [data, setData] = useState([]);
   const [statistics, setStatistics] = useState({});
+  const socket = useRef();
 
   let startTime = 0;
+
   const start = () => {
-    const socket = new WebSocket(
+    socket.current = new WebSocket(
       "wss://trade.trademux.net:8800/?password=1234"
     );
-    socket.onopen = () => {
+    socket.current.onopen = () => {
       startTime = performance.now();
     };
-    socket.onerror = function (error) {
-      console.log(`${error.message}`);
-      socket.onclose();
-    };
-    socket.onmessage = (event) => {
+    socket.current.onmessage = (event) => {
       let response = JSON.parse(event.data);
       setData((prev) => [...prev, response.value]);
     };
+    socket.current.onclose = () => {};
+    socket.current.onerror = (error) => {
+      console.log(`${error.message}`);
+      socket.onclose();
+    };
   };
 
-  // useEffect(() => {
-  //   return (socket.onclose = function (event) {
-  //     if (event.wasClean) {
-  //       alert(
-  //         `[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`
-  //       );
-  //     } else {
-  //       alert("[close] Соединение прервано");
-  //     }
-  //   });
-  // }, []);
+  const startWorker = useWebWorker(start);
 
-  const StatsClick = () => {
-    if (data.length) {
-      setStatistics(getStatistisc(data, startTime));
-    }
+  const statisticHandler = () => {
+    startWorker.run(data);
+    setStatistics(getStatistisc(data, startTime));
   };
+
+  // function StatsClick() {
+  //   if (data.length) {
+  //     setStatistics(getStatistisc(data, startTime));
+  //   }
+  // }
 
   return (
     <div className="quotes">
@@ -49,7 +48,11 @@ export default function Quotes() {
         <button className="button" onClick={start}>
           Start
         </button>
-        <button className="button" disabled={!data.length} onClick={StatsClick}>
+        <button
+          className="button"
+          disabled={!data.length}
+          onClick={statisticHandler}
+        >
           Statistics
         </button>
       </div>
