@@ -35,12 +35,6 @@ export default function Quotes() {
     setStatistics(getStatistisc(data, startTime));
   };
 
-  // function StatsClick() {
-  //   if (data.length) {
-  //     setStatistics(getStatistisc(data, startTime));
-  //   }
-  // }
-
   return (
     <div className="quotes">
       <h1 className="quotes__title">Stock quotes statistics</h1>
