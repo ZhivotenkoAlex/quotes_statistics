@@ -8,9 +8,12 @@ export default function Quotes() {
   const [statistics, setStatistics] = useState({});
   const socket = useRef();
 
+  //variable for calculating a settlement time
   let startTime = 0;
 
-  const start = () => {
+  //started webSocket-session
+
+  const startSocket = () => {
     socket.current = new WebSocket(
       "wss://trade.trademux.net:8800/?password=1234"
     );
@@ -28,8 +31,10 @@ export default function Quotes() {
     };
   };
 
-  const startWorker = useWebWorker(start);
+  //assigns a value for starting worker
+  const startWorker = useWebWorker(startSocket);
 
+  //assigns a value for statistics handler and writes to state results of statistic calculations
   const statisticHandler = () => {
     startWorker.run(data);
     setStatistics(getStatistisc(data, startTime));
@@ -39,7 +44,7 @@ export default function Quotes() {
     <div className="quotes">
       <h1 className="quotes__title">Stock quotes statistics</h1>
       <div className="quotes__buttons">
-        <button className="button" onClick={start}>
+        <button className="button" onClick={startSocket}>
           Start
         </button>
         <button
