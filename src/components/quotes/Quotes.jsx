@@ -1,15 +1,26 @@
 import React, { useState, useRef } from "react";
 import "./quotes.css";
 import getStatistisc from "../../utils/stats";
-import { useWebWorker } from "../../hooks/useWebWorker";
 
 export default function Quotes() {
-  const [data, setData] = useState([]);
+  const [data] = useState({});
   const [statistics, setStatistics] = useState({});
+  const [active, setActive] = useState(true);
+
   const socket = useRef();
 
   //variable for calculating a settlement time
   let startTime = 0;
+
+  //Fills in state "data". when key is in object,
+  //function increase value of corresponding key by 1
+  function fillData(key) {
+    if (!data.hasOwnProperty(key)) {
+      data[key] = 1;
+    } else {
+      data[key]++;
+    }
+  }
 
   //started webSocket-session
 
@@ -21,8 +32,9 @@ export default function Quotes() {
       startTime = performance.now();
     };
     socket.current.onmessage = (event) => {
-      let response = JSON.parse(event.data);
-      setData((prev) => [...prev, response.value]);
+      let response = JSON.parse(event.data).value;
+      fillData(response);
+      setActive(false);
     };
     socket.current.onclose = () => {};
     socket.current.onerror = (error) => {
@@ -31,13 +43,11 @@ export default function Quotes() {
     };
   };
 
-  //assigns a value for starting worker
-  const startWorker = useWebWorker(startSocket);
-
   //assigns a value for statistics handler and writes to state results of statistic calculations
+
   const statisticHandler = () => {
-    startWorker.run(data);
-    setStatistics(getStatistisc(data, startTime));
+    let stats = getStatistisc(data, startTime);
+    setStatistics(stats);
   };
 
   return (
@@ -47,11 +57,7 @@ export default function Quotes() {
         <button className="button" onClick={startSocket}>
           Start
         </button>
-        <button
-          className="button"
-          disabled={!data.length}
-          onClick={statisticHandler}
-        >
+        <button className="button" disabled={active} onClick={statisticHandler}>
           Statistics
         </button>
       </div>
